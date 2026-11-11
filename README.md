@@ -1,7 +1,7 @@
 # Animated video ad
 
-A skill for Claude Code and Codex that turns your app into a short promo video. Ask for "a 30-second ad for my
-app" and the agent builds each shot as a small HTML animation of your **real** screens and numbers,
+A skill for Claude Code and Codex that turns your app into a short promo video. Ask for
+"a 30-second ad for my app" and the agent builds each shot as a small HTML animation of your **real** screens and numbers,
 records every shot to an MP4 clip, and writes you a script doc: which clip goes where, where to
 trim, how fast to play it, and what to say over it. You join the clips in your own editor
 (CapCut, Premiere, Camtasia, Resolve, iMovie...) and add your voice.
@@ -55,7 +55,9 @@ The skill follows the shared `SKILL.md` format, but it records real browser page
 ffmpeg, so it needs a local machine. Use it through Codex (CLI, app or IDE extension) rather than
 a ChatGPT chat.
 
-Then ask Claude or Codex something like *"Make a 20-second Instagram ad for my app. The web app is in ./web and
+## Use
+
+Ask Claude or Codex something like *"Make a 20-second Instagram ad for my app. The web app is in ./web and
 the numbers I can quote are in facts.md."*
 
 ### Requirements
@@ -79,7 +81,7 @@ allows commercial use before running generated audio in a paid ad.
 ```
 plugins/animated-video-ad/
   skills/animated-video-ad/
-    SKILL.md              the workflow Claude follows
+    SKILL.md              the workflow the agent follows
     assets/               base.css, shot.js helpers, shot and end-card templates
     scripts/              record.cjs (page -> MP4), check.cjs, grab.cjs (screenshots),
                           sheet.sh (contact sheets), roughcut.py, make_bed.py (music),
