@@ -1,0 +1,65 @@
+/* Shared look for every shot page. Swap the tokens for the product's brand.
+   Stage size: --w/--h. 1920x1080 by default; set :root { --w:1080px; --h:1920px; } (9:16) or
+   1080x1080 / 1080x1350 for feed formats. The recorder reads <html>'s size, so this is the clip size.
+   "world" = the product picture (screenshot, video frame) that can zoom and pan; overlays sit on top. */
+:root {
+  --accent:#e8483f;   /* brand / emphasis */
+  --hi:#ffd24d;       /* highlight lines, the thing to look at */
+  --ok:#46d17f;       /* success, "done", agreement */
+  --ink:#0d0f12;      /* background */
+  --panel:rgba(16,19,24,.9);
+  --muted:#9aa3ad;
+  --display:"Barlow Condensed",sans-serif;   /* big words */
+  --mono:"JetBrains Mono",monospace;         /* numbers, data, UI text */
+  --w:1920px; --h:1080px;
+}
+* { box-sizing:border-box; margin:0; }
+html,body { width:var(--w); height:var(--h); overflow:hidden; background:var(--ink); color:#fff; }
+.stage { position:absolute; inset:0; overflow:hidden; }
+
+/* The product picture. It fills the stage (object-fit:cover); set transform-origin per shot to zoom
+   toward the thing that matters, then add .zoom (or set transform from JS). */
+.world { position:absolute; inset:0; transition:transform 1.2s cubic-bezier(.6,0,.2,1); }
+.world > img, .world > video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+/* Marks drawn over the picture. Give the svg the SOURCE image's pixel size as its viewBox
+   (e.g. viewBox="0 0 1280 724") and preserveAspectRatio="xMidYMid slice" so it crops exactly like
+   the cover-fitted image: app/engine coordinates then drop straight in at any stage shape. */
+svg.marks { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+/* Darkens top and bottom so overlay text reads on any picture. */
+.shade { position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(180deg, rgba(5,7,10,.88), rgba(5,7,10,.5) 9%, transparent 26%, transparent 68%, rgba(5,7,10,.75)); }
+/* Blurred backdrop for data shots (tables, stats, files) so they still feel like the product. */
+.bg { position:absolute; inset:0; background-position:center; background-size:cover; filter:blur(18px) brightness(.32) saturate(.7); transform:scale(1.1); }
+
+.title { position:absolute; left:90px; top:96px; font:800 92px/0.95 var(--display); text-transform:uppercase;
+  text-shadow:0 4px 24px rgba(0,0,0,.55); transition:opacity .45s, transform .45s; }
+.title em { font-style:normal; color:var(--accent); }
+.title.pre { opacity:0; transform:translateY(20px); }
+.kicker { position:absolute; left:90px; top:96px; font:800 30px/1 var(--display); letter-spacing:.24em; opacity:0;
+  transition:opacity .4s; text-shadow:0 2px 14px rgba(0,0,0,.6); }
+.kicker span { color:var(--accent); }
+.on { opacity:1 !important; transform:none !important; }
+/* .out must beat .on, so swapping .on for .out (or adding .out) always hides the element. */
+.out { opacity:0 !important; transform:translateY(-20px) !important; }
+
+.panel { position:absolute; padding:30px 34px; border-radius:22px; background:var(--panel); border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 30px 80px rgba(0,0,0,.5); opacity:0; transform:translateX(60px); transition:opacity .5s, transform .6s cubic-bezier(.2,.9,.2,1); }
+.panel h2 { font:800 26px/1 var(--display); letter-spacing:.22em; color:var(--muted); text-transform:uppercase; }
+.mono { font-family:var(--mono); }
+
+.btn { background:#fff; color:#111; font:700 26px/1 var(--mono); padding:18px 24px; border-radius:12px; transition:transform .12s, background .12s; white-space:nowrap; }
+.btn.press { transform:scale(.92); background:#ffe7e5; }
+
+/* Drawn cursor for "the user does this" moments; move it with left/top transitions from JS. */
+/* left/top is the arrow's TIP: the box is zero-size and the drawing is shifted so its tip
+   (4,2 in the 24-unit path = 7,4 px at 44 px) sits on that point. Move it with cursorTo(el). */
+.cursor { position:absolute; left:0; top:0; width:0; height:0; opacity:0; pointer-events:none; z-index:20;
+  transition:opacity .3s, left .7s cubic-bezier(.5,0,.2,1), top .7s cubic-bezier(.5,0,.2,1); filter:drop-shadow(0 3px 6px rgba(0,0,0,.5)); }
+.cursor svg { position:absolute; left:-7px; top:-4px; width:44px; height:44px; display:block; }
+.cursor.down::after { content:""; position:absolute; left:-18px; top:-18px; width:36px; height:36px; border-radius:50%;
+  border:3px solid #fff; animation:ripple .5s ease-out forwards; }
+@keyframes ripple { from { transform:scale(.3); opacity:1; } to { transform:scale(1.6); opacity:0; } }
+
+/* A new row/line arriving. */
+.new { animation:pop .45s cubic-bezier(.2,.9,.2,1); }
+@keyframes pop { from { opacity:0; transform:translateX(40px); } }

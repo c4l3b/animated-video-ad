@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "animated-video-ad",
+  "version": "1.0.0",
+  "description": "Turn your app into a short promo video: animated clips built from real screenshots and data, a cut list and script, music and an optional voice-over.",
+  "owner": {
+    "name": "Caleb Bertsch"
+  },
+  "plugins": [
+    {
+      "name": "animated-video-ad",
+      "description": "Turn an app or product into a short ad or promo video built from HTML animations of its real screens and data, with a cut list, voice-over script, music and a rough-cut preview.",
+      "version": "1.0.0",
+      "author": { "name": "Caleb Bertsch" },
+      "source": "./plugins/animated-video-ad",
+      "category": "productivity"
+    }
+  ]
+}

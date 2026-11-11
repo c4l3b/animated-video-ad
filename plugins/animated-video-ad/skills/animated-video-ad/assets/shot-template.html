@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shot name</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  /* One idea per shot. Note here where the picture and numbers come from (frame, export, query). */
+  .world { transform-origin:960px 540px; }
+  .world.zoom { transform:scale(1.5); }
+  .hl { fill:none; stroke:var(--hi); stroke-width:3; opacity:0; transition:opacity .3s; }
+  .result { right:90px; top:250px; width:620px; }
+  .row { display:flex; gap:20px; align-items:center; height:72px; font:700 34px/1 var(--mono); border-bottom:1px solid rgba(255,255,255,.08); }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="world" id="world">
+    <img id="frame" src="frames/f001.jpg" alt="">
+    <svg class="marks" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+      <rect class="hl" id="hl" x="800" y="400" width="300" height="200" rx="8"/>
+    </svg>
+  </div>
+  <div class="shade"></div>
+  <div class="title" id="title">Big <em>claim</em></div>
+  <div class="panel result" id="result"><h2>Result</h2><div id="rows"></div></div>
+  <div class="cursor" id="cursor"><svg viewBox="0 0 24 24"><path d="M4 2l16 9-7 2-3 7z" fill="#111" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+</div>
+<script src="shot.js"></script>
+<script>
+  // The whole shot is one async timeline in start(). Helpers ($, sleep, show, hide, cursorTo,
+  // click, typeText, countUp, frameTo, preload) come from shot.js, which also auto-plays the page
+  // when opened normally (the recorder uses #manual and calls start() itself).
+  const FRAMES = Array.from({ length: 1 }, (_, i) => `frames/f${String(i + 1).padStart(3, '0')}.jpg`);
+  preload(FRAMES);   // auto-play and the recorder wait for these
+
+  async function start() {
+    // 1. Establish: picture + title, ~1 s.
+    await sleep(900);
+    // 2. The product does its thing: zoom to it, draw the highlight.
+    hide($('title')); $('world').classList.add('zoom');
+    await sleep(700);
+    $('hl').style.opacity = 1;
+    // (to play frames: for (const s of FRAMES) { $('frame').src = s; await sleep(40); })
+    await sleep(600);
+    // 3. Payoff: the result lands. End on a state that can hold as a still.
+    show($('result'));
+    $('rows').insertAdjacentHTML('beforeend', '<div class="row new">Real value from the app</div>');
+    // A user step: always aim at the element.
+    // await cursorTo($('go')); await click($('go'));
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Pulse — uptime monitoring</title>
+<style>
+:root{--bg:#0b1020;--card:#141b2f;--line:#24304d;--txt:#e6ebf5;--mut:#8b97b3;--up:#2ecc8f;--down:#ff5a6a;--warn:#ffb547;--brand:#6c7bff}
+*{box-sizing:border-box;margin:0}body{font:14px/1.4 Inter,system-ui,sans-serif;background:var(--bg);color:var(--txt);padding:24px 32px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:22px}.dot{width:12px;height:12px;border-radius:50%;background:var(--brand);box-shadow:0 0 12px var(--brand)}
+header h1{font-size:20px}header .s{margin-left:auto;color:var(--up);font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}.k{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}.k small{color:var(--mut)}.k b{display:block;font-size:28px;margin-top:6px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}td,th{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--mut);font-weight:500}
+.bars{display:flex;gap:2px}.bars i{width:5px;height:22px;border-radius:2px;background:var(--up)}.bars i.d{background:var(--down)}.bars i.w{background:var(--warn)}
+.pill{padding:3px 9px;border-radius:99px;font-weight:600;font-size:12px}.up{background:rgba(46,204,143,.15);color:var(--up)}.down{background:rgba(255,90,106,.15);color:var(--down)}
+.alert{margin-top:18px;background:var(--card);border:1px solid var(--down);border-radius:12px;padding:14px 16px;display:flex;gap:14px;align-items:center}
+</style></head><body>
+<header><div class="dot"></div><h1>Pulse</h1><span class="s">● 11 of 12 checks up</span></header>
+<div class="kpis"><div class="k"><small>Uptime (30 days)</small><b>99.97%</b></div><div class="k"><small>Median response</small><b>182 ms</b></div><div class="k"><small>Incidents (30 days)</small><b>2</b></div><div class="k"><small>Check locations</small><b>9 regions</b></div></div>
+<table><thead><tr><th>Check</th><th>Status</th><th>Last 30 checks</th><th>Response</th></tr></thead><tbody id="rows"></tbody></table>
+<div class="alert"><span class="pill down">DOWN</span><div><b>checkout-api</b> returned 503 from 4 of 9 regions · alert sent to #oncall in Slack and to PagerDuty · 38 s after first failure</div></div>
+<script>
+const R=[["acme.com","up",[],142],["api.acme.com/health","up",[22],188],["checkout-api","down",[26,27,28,29],"—"],["status.acme.com","up",[],97],["auth.acme.com","up",[],211]];
+document.getElementById('rows').innerHTML=R.map(([n,s,bad,ms])=>`<tr><td>${n}</td><td><span class="pill ${s}">${s.toUpperCase()}</span></td><td><div class="bars">${Array.from({length:30},(_, i)=>`<i class="${bad.includes(i)?(s==='down'?'d':'w'):''}"></i>`).join('')}</div></td><td>${ms}${ms==='—'?'':' ms'}</td></tr>`).join('');
+</script></body></html>

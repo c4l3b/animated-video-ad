@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: shelfie-instagram-ad
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  A set of 1920x1080 MP4 clips animating the real Shelfie UI and facts (barcode add, progress,
+  goal/streak, the 68% survey number, end card with shelfie.app and free to start), plus a script
+  doc for CapCut with a cut table (clip, in-out, speed, VO line) totalling about 20 s and a clean
+  voice-over read. No invented claims (never "#1 reading app").

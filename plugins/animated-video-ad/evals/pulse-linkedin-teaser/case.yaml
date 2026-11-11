@@ -1,0 +1,9 @@
+schema_version: "1.1"
+name: pulse-linkedin-teaser
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  Animated MP4 clips from the real Pulse dashboard and launch notes (setup in under a minute,
+  checks from 9 regions, alert in 38 s, status page, end card with pulse.dev and "Start monitoring
+  free"), a Premiere script doc with a ~15 s cut table and VO lines, a quiet music bed WAV, and a
+  rough-cut preview MP4 with the music.

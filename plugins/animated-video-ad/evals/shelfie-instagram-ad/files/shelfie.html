@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Shelfie — your reading, tracked</title>
+<style>
+:root{--bg:#fbf7f0;--ink:#2b2118;--accent:#d9572b;--soft:#efe6d8;--ok:#3f8f5a}
+*{box-sizing:border-box;margin:0}body{font:16px/1.4 Georgia,serif;background:var(--bg);color:var(--ink);padding:28px 40px}
+header{display:flex;align-items:center;gap:14px;margin-bottom:24px}header h1{font-size:30px}header .logo{width:40px;height:40px;border-radius:10px;background:var(--accent);color:#fff;display:grid;place-items:center;font:700 22px sans-serif}
+nav{margin-left:auto;display:flex;gap:18px;font:600 14px sans-serif}nav a{color:var(--ink);text-decoration:none}nav a.on{color:var(--accent)}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:24px}.card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+h2{font:700 13px sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8a7a68;margin-bottom:14px}
+.book{display:flex;gap:14px;align-items:center;padding:10px 0;border-bottom:1px solid var(--soft)}.cover{width:44px;height:64px;border-radius:4px}
+.bar{height:8px;background:var(--soft);border-radius:4px;margin-top:6px;width:260px}.bar i{display:block;height:100%;background:var(--accent);border-radius:4px}
+.goal b{font-size:48px;color:var(--accent)}.streak b{font-size:36px;color:var(--ok)}
+.scan{margin-top:16px;padding:14px;border:2px dashed var(--accent);border-radius:12px;text-align:center;font:600 14px sans-serif;color:var(--accent)}
+</style></head><body>
+<header><div class="logo">S</div><h1>Shelfie</h1><nav><a class="on" href="#">Reading now</a><a href="#">Shelves</a><a href="#">Stats</a><a href="#">Friends</a></nav></header>
+<div class="grid"><div class="card"><h2>Reading now</h2><div id="now"></div><div class="scan">📷 Scan a barcode to add a book</div></div>
+<div><div class="card goal"><h2>2026 reading goal</h2><b id="done"></b> <span id="goal"></span></div><br><div class="card streak"><h2>Streak</h2><b>23 days</b><p>Read 10+ pages every day since Oct 19</p></div></div></div>
+<script>
+const NOW=[["The Overstory","Richard Powers",412,502,"#4a6b3a"],["Piranesi","Susanna Clarke",88,272,"#2f4f6f"],["Educated","Tara Westover",301,334,"#b5823c"]];
+document.getElementById('now').innerHTML=NOW.map(([t,a,p,n,c])=>`<div class="book"><div class="cover" style="background:${c}"></div><div><b>${t}</b><div>${a}</div><div class="bar"><i style="width:${p/n*100}%"></i></div><small>page ${p} of ${n}</small></div></div>`).join('');
+document.getElementById('done').textContent='31';document.getElementById('goal').textContent='of 40 books';
+</script></body></html>

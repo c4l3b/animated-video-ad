@@ -1,0 +1,7 @@
+Pulse launch notes
+- Uptime + API monitoring for small dev teams. Checks every 30 s from 9 regions.
+- Set up a check in under a minute: paste a URL, pick regions, done.
+- Alerts to Slack, PagerDuty, email, SMS. Median time from first failure to alert in our own logs (Oct 2026): 38 s.
+- Public status page generated automatically (status.yourcompany.com).
+- Pricing: free for 5 checks; Team $19/mo. Site: pulse.dev  CTA: "Start monitoring free"
+- Brand colour #6c7bff on near-black.

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>End card</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="base.css">
+<style>
+  /* Use the product's real logo file (SVG preferred). Positions here are for 16:9; for other shapes
+     re-lay with % or the stage size so it stays centred. */
+  .sweep { position:absolute; left:0; top:50%; height:6px; width:100%; background:var(--hi); transform-origin:left; transform:scaleX(0); border-radius:3px; }
+  .sweep.go { animation:sweep .6s cubic-bezier(.6,0,.2,1) forwards; }
+  @keyframes sweep { 0% { transform:scaleX(0); opacity:1; } 70% { transform:scaleX(1); opacity:1; } 100% { transform:scaleX(1); opacity:0; } }
+  .logo { position:absolute; left:50%; top:300px; width:1100px; margin-left:-550px; opacity:0; transform:translateY(20px) scale(.97); transition:opacity .5s, transform .6s cubic-bezier(.2,.9,.2,1); }
+  .tag { position:absolute; left:0; right:0; top:520px; text-align:center; font:800 54px/1 var(--display); letter-spacing:.12em; text-transform:uppercase; color:#cfd6dd; opacity:0; transition:opacity .4s; }
+  .cta { position:absolute; left:50%; top:650px; transform:translateX(-50%) scale(.9); opacity:0; transition:opacity .35s, transform .45s cubic-bezier(.2,1.5,.4,1);
+    background:var(--accent); color:#fff; font:800 64px/1 var(--display); text-transform:uppercase; letter-spacing:.04em; padding:28px 60px; border-radius:18px; white-space:nowrap; }
+  .cta.on { transform:translateX(-50%) !important; }
+  .url { position:absolute; left:0; right:0; top:820px; text-align:center; font:700 48px/1 var(--mono); opacity:0; transition:opacity .4s; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="bg" style="background-image:url(frames/f001.jpg)"></div>
+  <div class="sweep" id="sweep"></div>
+  <img class="logo" id="logo" src="logo.svg" alt="Product">
+  <div class="tag" id="tag">One-line promise</div>
+  <div class="cta" id="cta">Start your free trial</div>
+  <div class="url" id="url">example.com</div>
+</div>
+<script src="shot.js"></script>
+<script>
+  async function start() {
+    $('sweep').classList.add('go'); await sleep(450);
+    show($('logo')); await sleep(400);
+    show($('tag')); await sleep(450);
+    show($('cta')); await sleep(300);
+    show($('url'));
+  }
+</script>
+</body>
+</html>

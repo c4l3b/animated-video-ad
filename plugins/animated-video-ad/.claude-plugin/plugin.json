@@ -1,0 +1,10 @@
+{
+  "name": "animated-video-ad",
+  "version": "1.0.0",
+  "description": "Turn an app or product into a short ad or promo video built from HTML animations of its real screens and data, with a cut list, voice-over script, music and a rough-cut preview.",
+  "author": {
+    "name": "Caleb Bertsch"
+  },
+  "license": "MIT",
+  "icon": ".claude-plugin/icon.png"
+}
